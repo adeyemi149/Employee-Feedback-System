@@ -12,10 +12,11 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
         return await context.Members.FindAsync(id);
     }
 
-    public async Task<Member?> GetMemberForUpdate(string id)
+    public async Task<Member?> GetMemberForUpdate(string id) 
     {
         return await context.Members
             .Include(x => x.User)
+            .Include(p => p.Photos) 
             .SingleOrDefaultAsync(x => x.Id == id);
     }
 
